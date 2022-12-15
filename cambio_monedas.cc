@@ -18,5 +18,6 @@ int main(int argc, char* argv[]) {
   const std::string kValorEntrante{argv[1]};
   Usage(numero_argumentos, kValorEntrante);
   double valor_objetivo{std::stod(kValorEntrante)};
+  sex
   return 0;
 }
