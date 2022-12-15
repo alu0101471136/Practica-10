@@ -12,12 +12,17 @@
   */
 #include <iostream>
 #include "tools.h"
+#include "monedas.h"
 
 int main(int argc, char* argv[]) {
   int numero_argumentos{argc};
   const std::string kValorEntrante{argv[1]};
   Usage(numero_argumentos, kValorEntrante);
-  double valor_objetivo{std::stod(kValorEntrante)};
-  
+  if (kValorEntrante != "-b" || kValorEntrante != "-o") {
+    double valor_objetivo{std::stod(kValorEntrante)};
+    Monedas todas_monedas;
+    todas_monedas.CompletarMonedas();
+    todas_monedas.DevolverCambio(valor_objetivo);
+  }
   return 0;
 }
