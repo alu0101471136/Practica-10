@@ -25,26 +25,57 @@ void Usage(int numero_parametros, std::string primer_parametro) {
     std::cout << kHelpText << std::endl;
     exit(EXIT_SUCCESS); 
   }
-  if (numero_parametros != 2) {
-    std::cout << "Modo de Uso: ./cambio_monedas n" << std::endl;
+  if (numero_parametros != 2 && numero_parametros !=3) {
+    std::cout << "Modo de Uso: ./cambio_monedas (-b|-o) n" << std::endl;
     std::cout << "Pruebe ./cambio_monedas --help para más información" << std::endl;
     exit(EXIT_SUCCESS);
   }
 }
 
+void MostrarSolucion(std::vector<double>& solucion) {
+  for (unsigned i = 0; i < solucion.size(); ++i) {
+    std::cout << solucion[i] << " ";
+  }
+  std::cout << "\n";
+}
+
 void Monedas::CompletarBilletes() {
-  vector_monedas_.push_back(5);
-  vector_monedas_.push_back(10);
-  vector_monedas_.push_back(20);
-  vector_monedas_.push_back(50);
-  vector_monedas_.push_back(100);
-  vector_monedas_.push_back(200);
-  vector_monedas_.push_back(500);
+  vector_monedas_.insert(vector_monedas_.begin(), 5);
+  vector_monedas_.insert(vector_monedas_.begin(), 10);
+  vector_monedas_.insert(vector_monedas_.begin(), 20);
+  vector_monedas_.insert(vector_monedas_.begin(), 50);
+  vector_monedas_.insert(vector_monedas_.begin(), 100);
+  vector_monedas_.insert(vector_monedas_.begin(), 200);
+  vector_monedas_.insert(vector_monedas_.begin(), 500);
   for (int i = 1; i <= 7; ++i) {
     repeticiones_.push_back(0);
   }
 }
 
-void Monedas::DevolverCambio(double valor_objetivo) {
-  std::cout << "nada" << "\n";
+std::vector<double> Monedas::DevolverCambio(double valor_objetivo) {
+  std::vector<double> solucion;
+  double suma{0};
+  while (suma != valor_objetivo) {
+    for (unsigned i = 0; i < vector_monedas_.size(); ++i) {
+      if (vector_monedas_[i] + suma <= valor_objetivo) {
+        solucion.push_back(vector_monedas_[i]);
+        suma += vector_monedas_[i];
+      }
+    }
+  }
+  return solucion;
+}
+
+std::vector<double> Monedas::DevolverCambioEficiente(double valor_objetivo) {
+  std::vector<double> solucion;
+  double suma{0};
+    for (unsigned i = 0; i < vector_monedas_.size(); ++i) {
+      double cociente = (valor_objetivo - suma) / vector_monedas_[i];
+      if (cociente > 0) {
+        for (int j = 0; j < cociente; ++j) 
+          solucion.push_back(vector_monedas_[i]);
+        suma += vector_monedas_[i] * cociente;
+      }
+    }
+  return solucion;
 }

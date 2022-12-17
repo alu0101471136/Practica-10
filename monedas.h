@@ -9,7 +9,8 @@ class Monedas {
   Monedas(std::vector<double> vector_monedas, std::vector<int> repeticiones) : 
         vector_monedas_{vector_monedas}, repeticiones_{repeticiones} { /* Constructor con parametros */ }
   void CompletarBilletes();
-  void DevolverCambio(double);
+  std::vector<double> DevolverCambio(double);
+  std::vector<double> DevolverCambioEficiente(double);
   std::vector<double> vector_monedas() { return vector_monedas_; } // Getter de las monedas
   std::vector<int> repeticiones() { return repeticiones_; } // Getter de las repeticiones
  private:

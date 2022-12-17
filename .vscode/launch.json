@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/cambio_monedas",
-            "args": ["7.43"],
+            "args": ["-b", "7.43"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/",
             "environment": [],
