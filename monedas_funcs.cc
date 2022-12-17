@@ -33,10 +33,19 @@ void Usage(int numero_parametros, std::string primer_parametro) {
 }
 
 void MostrarSolucion(std::vector<double>& solucion) {
+  std::cout << "Solucion: ";
   for (unsigned i = 0; i < solucion.size(); ++i) {
-    std::cout << solucion[i] << " ";
+    int numero_repeticiones{0};
+    for (unsigned j = 0; j < solucion.size(); ++j) {
+      if (solucion[i] == solucion[j]) {
+        ++numero_repeticiones;
+      }
+    }
+    std::cout << numero_repeticiones << "x" << solucion[i] << "€ ";
+    i += (numero_repeticiones - 1);
   }
   std::cout << "\n";
+  std::cout << "Total monedas: " << solucion.size() << "\n";
 }
 
 void Monedas::CompletarBilletes() {
@@ -47,21 +56,26 @@ void Monedas::CompletarBilletes() {
   vector_monedas_.insert(vector_monedas_.begin(), 100);
   vector_monedas_.insert(vector_monedas_.begin(), 200);
   vector_monedas_.insert(vector_monedas_.begin(), 500);
-  for (int i = 1; i <= 7; ++i) {
-    repeticiones_.push_back(0);
-  }
 }
 
 std::vector<double> Monedas::DevolverCambio(double valor_objetivo) {
   std::vector<double> solucion;
   double suma{0};
   while (suma != valor_objetivo) {
+    double mayor_moneda{0};
     for (unsigned i = 0; i < vector_monedas_.size(); ++i) {
       if (vector_monedas_[i] + suma <= valor_objetivo) {
-        solucion.push_back(vector_monedas_[i]);
-        suma += vector_monedas_[i];
+        mayor_moneda = vector_monedas_[i];
+        break;
+      } else {
+        mayor_moneda = 3;
       }
     }
+    if (mayor_moneda == 3) {
+      solucion.push_back(-1);
+    }
+    solucion.push_back(mayor_moneda);
+    suma += mayor_moneda;
   }
   return solucion;
 }
@@ -70,8 +84,8 @@ std::vector<double> Monedas::DevolverCambioEficiente(double valor_objetivo) {
   std::vector<double> solucion;
   double suma{0};
     for (unsigned i = 0; i < vector_monedas_.size(); ++i) {
-      double cociente = (valor_objetivo - suma) / vector_monedas_[i];
-      if (cociente > 0) {
+      int cociente = (valor_objetivo - suma) / vector_monedas_[i];
+      if (cociente >= 0) {
         for (int j = 0; j < cociente; ++j) 
           solucion.push_back(vector_monedas_[i]);
         suma += vector_monedas_[i] * cociente;

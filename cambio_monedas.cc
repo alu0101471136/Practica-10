@@ -22,12 +22,22 @@ int main(int argc, char* argv[]) {
   if (kValorEntrante != "-b" && kValorEntrante != "-o") {
     double valor_objetivo{std::stod(kValorEntrante)};
     std::vector<double> solucion = todas_monedas.DevolverCambio(valor_objetivo);
+    if (solucion[0] == -1) {
+      std::cerr << "No existe solución" << "\n";
+      return 0;
+    }
     MostrarSolucion(solucion);
   } else if (kValorEntrante == "-b") {
     std::string cadena_aux{argv[2]};
     double valor_objetivo{std::stod(cadena_aux)};
     todas_monedas.CompletarBilletes();
-    todas_monedas.DevolverCambio(valor_objetivo);
+    std::vector<double> solucion = todas_monedas.DevolverCambio(valor_objetivo);
+    MostrarSolucion(solucion);
+  } else if (kValorEntrante == "-o") {
+    std::string cadena_aux{argv[2]};
+    double valor_objetivo{std::stod(cadena_aux)};
+    std::vector<double> solucion = todas_monedas.DevolverCambioEficiente(valor_objetivo);
+    MostrarSolucion(solucion);
   }
   return 0;
 }
