@@ -21,7 +21,6 @@ int main(int argc, char* argv[]) {
   if (kValorEntrante != "-b" || kValorEntrante != "-o") {
     double valor_objetivo{std::stod(kValorEntrante)};
     Monedas todas_monedas;
-    todas_monedas.CompletarMonedas();
     todas_monedas.DevolverCambio(valor_objetivo);
   }
   return 0;

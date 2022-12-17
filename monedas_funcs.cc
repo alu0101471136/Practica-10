@@ -32,26 +32,17 @@ void Usage(int numero_parametros, std::string primer_parametro) {
   }
 }
 
-void Monedas::CompletarMonedas() {
-  vector_monedas_.push_back({2, 0});
-  vector_monedas_.push_back({1, 0});
-  vector_monedas_.push_back({0.50, 0});
-  vector_monedas_.push_back({0.20, 0});
-  vector_monedas_.push_back({0.10, 0});
-  vector_monedas_.push_back({0.050, 0});
-  vector_monedas_.push_back({0.020, 0});
-  vector_monedas_.push_back({0.010, 0});
-}
-
 void Monedas::CompletarBilletes() {
-  vector_monedas_.push_back({500, 0});
-  vector_monedas_.push_back({200, 0});
-  vector_monedas_.push_back({100, 0});
-  vector_monedas_.push_back({50, 0});
-  vector_monedas_.push_back({20, 0});
-  vector_monedas_.push_back({10, 0});
-  vector_monedas_.push_back({5, 0});
-  CompletarMonedas();
+  vector_monedas_.push_back(5);
+  vector_monedas_.push_back(10);
+  vector_monedas_.push_back(20);
+  vector_monedas_.push_back(50);
+  vector_monedas_.push_back(100);
+  vector_monedas_.push_back(200);
+  vector_monedas_.push_back(500);
+  for (int i = 1; i <= 7; ++i) {
+    repeticiones_.push_back(0);
+  }
 }
 
 void Monedas::DevolverCambio(double valor_objetivo) {
